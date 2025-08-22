@@ -2,19 +2,22 @@
 
 **Waveshare** is a lightweight, local-first file-sharing app that lets you instantly share files over the same Wi-Fi network or hotspot. Just pick a file, get a QR code, and let others download it — no internet or accounts required.
 
-![tauri](https://img.shields.io/badge/Built%20with-Tauri-blueviolet?style=flat&logo=tauri)
-![rust](https://img.shields.io/badge/Backend-Rust-orange?logo=rust)
-![actix](https://img.shields.io/badge/Actix-Web%20Server-7F3FBF?logo=actix)
-![status](https://img.shields.io/badge/Status-Work%20In%20Progress-yellow)
+![react](https://img.shields.io/badge/Frontend-React-61DAFB?style=flat&logo=react)
+![typescript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat&logo=typescript)
+![express](https://img.shields.io/badge/Backend-Express.js-000000?style=flat&logo=express)
+![node](https://img.shields.io/badge/Runtime-Node.js-339933?style=flat&logo=node.js)
+![status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 ---
 
 ## ✨ Features
 
-- 🔐 Share files securely via your local network or hotspot
-- 🔗 Each shared file gets a unique tokenized URL
-- 🖥️ Minimal UI with file selection and server control
-- ⚡ Fast, lightweight, and internet-independent
+- 🔐 **Secure Local Sharing** - Share files securely via your local network or hotspot
+- 🔗 **Unique Token URLs** - Each shared file gets a unique tokenized URL for security
+- 🖥️ **Minimal UI** - Clean and intuitive interface with file selection and server control
+- ⚡ **Fast & Lightweight** - Optimized for speed and internet-independent operation
+- 🎨 **Dark/Light Mode** - Toggle between themes for comfortable viewing
+- 📱 **QR Code Generation** - Instant QR codes for easy mobile access
 
 ---
 
@@ -22,62 +25,188 @@
 
 ### Prerequisites
 
-- Rust (stable)
+- **Node.js** (v16 or higher) - [Download here](https://nodejs.org/en/download)
+- **npm** (comes with Node.js)
+
+### Installation & Setup
+
+1. **Clone the repository**
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+git clone https://github.com/RishabhJain2105/Waveshare.git
+cd Waveshare
 ```
-- Node.js & npm (https://nodejs.org/en/download)
-- Tauri CLI
 
+2. **Install dependencies**
 ```bash
-npm create tauri-app@latest -- --tauri-version 1
-```
-
-### Clone & Run
-
-```bash
-git clone https://github.com/rinsane/waveshare.git
-cd waveshare
 npm install
-npm run tauri dev
 ```
 
-This will launch the Tauri app with a Rust backend powered by Actix Web.
-NOTE: you might run into some missing dependencies errors, just do this:
+3. **Install backend dependencies**
 ```bash
-sudo apt update
-sudo apt-get install libsoup2.4-dev
-sudo apt install libwebkit2gtk-4.0-dev
+cd backend
+npm install
+cd ..
 ```
 
-## 🔧 Backend Design
+### Running the Application
 
-- File selected via UI is stored using a `Mutex<Option<PathBuf>>`
-- Each shared file is assigned a unique token, e.g. `http://<host_ip>:8080/download/<token>`
-- `actix_files::NamedFile` serves the file directly
-- QR code is generated based on the download URL
+**Development Mode** (runs both frontend and backend concurrently):
+```bash
+npm run dev
+```
 
-## 📱 Frontend UI
+**Individual Components:**
+```bash
+# Frontend only (React + Vite)
+npm run dev:frontend
 
-- Manual file path input (drag & drop support planned)
-- Button to generate a QR code
-- Download link preview
-- Button to shut down the server gracefully
+# Backend only (Express.js server)
+npm run dev:backend
+```
 
-## 🔒 Security
+**Build for Production:**
+```bash
+npm run build
+```
 
-- Only users on the same local network or hotspot can access the file
-- URLs are unguessable due to randomized tokens
-- No files are uploaded to any cloud or external server
+The application will be available at:
+- **Frontend**: `http://localhost:5173`
+- **Backend**: `http://localhost:8080`
 
-## 🛠️ Roadmap
+---
 
-- Drag and drop support
-- File upload queue
-- Download tracking
-- Auto-shutdown timer
-- Password protection for shared links
+## 🏗️ Architecture
+
+### Frontend (React + TypeScript)
+- **React 18** with TypeScript for type safety
+- **Vite** for fast development and building
+- **Framer Motion** for smooth animations
+- **React QR Code** for QR code generation
+- **Axios** for API communication
+
+### Backend (Express.js)
+- **Express.js** server handling file sharing logic
+- **CORS** enabled for cross-origin requests
+- **Internal IP detection** for network sharing
+- **Crypto-based token generation** for secure file URLs
+- **File system operations** for direct file serving
+
+### Key Components
+- `FilePicker.tsx` - File selection and sharing interface
+- `App.tsx` - Main application component with theme management
+- `server.js` - Express backend with API endpoints
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/share` | Share a file and get a unique token |
+| `GET` | `/api/ip` | Get the local IP address |
+| `GET` | `/download/:token` | Download a file using its token |
+| `POST` | `/api/shutdown` | Gracefully shutdown the server |
+
+---
+
+## 🔒 Security Features
+
+- **Local Network Only** - Files are only accessible within your local network or hotspot
+- **Unguessable URLs** - Cryptographically secure random tokens prevent unauthorized access
+- **No Cloud Storage** - Files remain on your device and are never uploaded to external servers
+- **Automatic Cleanup** - File tokens are removed after download
+- **Token Expiration** - Links become invalid when server restarts
+
+---
+
+## 🎯 Usage
+
+1. **Start the Application** - Run `npm run dev`
+2. **Enter File Path** - Type or paste the full path to your file
+3. **Generate QR Code** - Click "Share File" to create a QR code and download link
+4. **Share** - Others can scan the QR code or use the link to download
+5. **Stop Server** - Use the "Stop Server" button when done
+
+---
+
+## 📁 Project Structure
 
 ```
-Made with ❤️ by wavesharers
+Waveshare/
+├── src/
+│   ├── components/
+│   │   ├── FilePicker.tsx      # File selection component
+│   │   └── ManualFileInput.tsx # Manual file input component
+│   ├── assets/                 # Static assets
+│   ├── App.tsx                # Main application
+│   └── main.tsx               # Entry point
+├── backend/
+│   ├── server.js              # Express.js server
+│   ├── package.json           # Backend dependencies
+│   └── package-lock.json
+├── public/                    # Public assets
+├── package.json              # Frontend dependencies
+└── README.md
+```
+
+---
+
+## 🛠️ Development
+
+### Scripts Available
+
+- `npm run dev` - Run both frontend and backend
+- `npm run dev:frontend` - Run React development server
+- `npm run dev:backend` - Run Express.js server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+
+### Tech Stack
+
+- **Frontend**: React, TypeScript, Vite, Framer Motion
+- **Backend**: Node.js, Express.js, CORS
+- **Utilities**: Axios, React QR Code, Internal IP
+- **Development**: Concurrent execution for full-stack development
+
+---
+
+## 🚧 Roadmap
+
+- [ ] **Drag & Drop Support** - File dropping interface
+- [ ] **Multiple File Queue** - Share multiple files simultaneously  
+- [ ] **Download Progress** - Real-time download tracking
+- [ ] **Auto-shutdown Timer** - Configurable server auto-stop
+- [ ] **Password Protection** - Optional password-protected links
+- [ ] **File Browser** - Built-in file system explorer
+- [ ] **Mobile App** - React Native version
+- [ ] **Transfer History** - Log of shared files
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the ISC License - see the package.json file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with modern web technologies for reliability and performance
+- Inspired by the need for simple, secure local file sharing
+- Community-driven development and feedback
+
+---
+
+```
+Made with ❤️ by the Waveshare team
 ```
