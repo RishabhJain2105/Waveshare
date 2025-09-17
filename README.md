@@ -2,11 +2,6 @@
 
 **Waveshare** is a lightweight, local-first file-sharing app that lets you instantly share files over the same Wi-Fi network or hotspot. Just pick a file, get a QR code, and let others download it — no internet or accounts required.
 
-![react](https://img.shields.io/badge/Frontend-React-61DAFB?style=flat&logo=react)
-![typescript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat&logo=typescript)
-![express](https://img.shields.io/badge/Backend-Express.js-000000?style=flat&logo=express)
-![node](https://img.shields.io/badge/Runtime-Node.js-339933?style=flat&logo=node.js)
-![status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 ---
 
