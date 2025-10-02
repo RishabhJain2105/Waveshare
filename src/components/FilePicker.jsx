@@ -73,7 +73,7 @@ export default function FilePicker({ setDownloadLink, darkMode, theme }) {
         <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap" }}>
           <input
             type="text"
-            placeholder="Enter file path or use browse button..."
+            placeholder="Enter file path"
             value={path}
             onChange={(e) => setPath(e.target.value)}
             readOnly={!isEditable}
@@ -92,7 +92,7 @@ export default function FilePicker({ setDownloadLink, darkMode, theme }) {
           />
           
           {/* Browse Button */}
-          <button
+          {/* <button
             onClick={handleBrowseFile}
             style={{
               padding: "12px 16px",
@@ -114,7 +114,7 @@ export default function FilePicker({ setDownloadLink, darkMode, theme }) {
             }}
           >
             📂 Browse
-          </button>
+          </button> */}
           
           {/* Edit Toggle */}
           <button
@@ -147,7 +147,7 @@ export default function FilePicker({ setDownloadLink, darkMode, theme }) {
           margin: 0,
           fontStyle: "italic" 
         }}>
-          💡 Tip: Use Browse for file selection or manually enter the full file path
+          {/* 💡 Tip: Use Browse for file selection or manually enter the full file path */}
         </p>
       </div>
 
